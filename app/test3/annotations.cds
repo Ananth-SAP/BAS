@@ -45,5 +45,12 @@ annotate service.customer with @(
             Value : street,
         },
     ],
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'AdminService.submitforApproval',
+            Label : 'submitforApproval',
+        },
+    ],
 );
 annotate service.customer with @odata.draft.enabled;

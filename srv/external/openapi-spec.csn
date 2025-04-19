@@ -1,0 +1,192 @@
+{
+ "definitions": {
+  "Trigger.Process.via.API.Trigger": {
+   "kind": "service",
+   "@Capabilities.BatchSupported": false,
+   "@Capabilities.KeyAsSegmentSupported": true,
+   "@Core.Description": "Trigger Process via API Trigger",
+   "@Core.SchemaVersion": "1.0.0"
+  },
+  "workflow_rest_v1_workflow_instances_post": {
+   "kind": "action",
+   "params": {
+    "body": {
+     "@title": "WorkflowInstanceStartRequest",
+     "elements": {
+      "definitionId": {
+       "@description": "Specify the ID of the workflow definition for which an instance should be started. The ID is at most 255 characters long.",
+       "type": "cds.String",
+       "@Core.Example.$Type": "Core.PrimitiveExampleValue",
+       "@Core.Example.Value": "us10.30dcd714trial.i0010kbworkflowcustomercreatetocap.i0010_customer_create_to_cap"
+      },
+      "context": {
+       "elements": {
+        "customerNo": {
+         "@title": "Customer No",
+         "type": "cds.String"
+        },
+        "_name": {
+         "@title": "Name",
+         "type": "cds.String"
+        },
+        "street": {
+         "@title": "Street",
+         "type": "cds.String"
+        }
+       }
+      }
+     },
+     "@openapi.in": "body"
+    }
+   },
+   "@Core.Description": "Starts a new workflow instance.",
+   "@Core.LongDescription": "Starts a new workflow instance of the provided workflow definition. Specify the ID of the workflow definition in the body.\nThe workflow instance automatically starts based on the latest deployed version of the definition.",
+   "@openapi.path": "/workflow/rest/v1/workflow-instances",
+   "returns": {
+    "type": "Trigger.Process.via.API.Trigger_types.WorkflowInstance"
+   }
+  },
+  "Trigger.Process.via.API.Trigger_types.TechnicalError": {
+   "elements": {
+    "error": {
+     "elements": {
+      "code": {
+       "@description": "The error category.",
+       "type": "cds.String"
+      },
+      "message": {
+       "@description": "The error message.",
+       "type": "cds.String"
+      },
+      "logId": {
+       "@description": "The log ID referring to the error.",
+       "type": "cds.String"
+      },
+      "details": {
+       "items": {
+        "elements": {
+         "severity": {
+          "@description": "The severity of the error.",
+          "type": "cds.String"
+         },
+         "message": {
+          "@description": "The detailed error message.",
+          "type": "cds.String"
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "kind": "type"
+  },
+  "Trigger.Process.via.API.Trigger_types.UnauthorizedError": {
+   "elements": {
+    "error": {
+     "@description": "The error name.",
+     "type": "cds.String"
+    },
+    "error_description": {
+     "@description": "The error description.",
+     "type": "cds.String"
+    }
+   },
+   "kind": "type"
+  },
+  "Trigger.Process.via.API.Trigger_types.ConflictError": {
+   "elements": {
+    "error": {
+     "elements": {
+      "message": {
+       "@description": "The error message.",
+       "type": "cds.String"
+      },
+      "logId": {
+       "@description": "The log ID referring to the error.",
+       "type": "cds.String"
+      }
+     }
+    }
+   },
+   "kind": "type"
+  },
+  "Trigger.Process.via.API.Trigger_types.WorkflowInstance": {
+   "elements": {
+    "definitionId": {
+     "@description": "The ID of the workflow definition for which the instance was started. The ID is at most 255 characters long.",
+     "type": "cds.String",
+     "length": 255
+    },
+    "definitionVersion": {
+     "@description": "The version of the workflow definition for which the instance was started.",
+     "type": "cds.String"
+    },
+    "id": {
+     "@description": "The workflow instance ID. The ID is at least 36 characters long.",
+     "type": "cds.String",
+     "length": 255
+    },
+    "startedAt": {
+     "@description": "The time when the workflow instance started.",
+     "type": "cds.Timestamp"
+    },
+    "startedBy": {
+     "@description": "The user who started the workflow instance. The user ID is at most 255 characters long.",
+     "type": "cds.String",
+     "length": 255
+    },
+    "completedAt": {
+     "@description": "The time when the workflow instance status changed to COMPLETED.",
+     "type": "cds.Timestamp"
+    },
+    "status": {
+     "@description": "The status of the workflow instance. The status values as returned by this API have the following corresponding terms in user interfaces of SAP Build Process Automation:\n* RUNNING - Running\n* ERRONEOUS - Error\n* SUSPENDED - On Hold\n* CANCELED - Canceled\n* COMPLETED - Completed",
+     "type": "cds.String",
+     "@assert.range": true,
+     "enum": {
+      "RUNNING": {},
+      "ERRONEOUS": {},
+      "SUSPENDED": {},
+      "CANCELED": {},
+      "COMPLETED": {}
+     }
+    },
+    "businessKey": {
+     "@description": "The business key of the workflow instance. The business key of a workflow instance is limited to 255 characters.",
+     "type": "cds.String",
+     "length": 255
+    },
+    "subject": {
+     "@description": "The subject of the workflow instance. The subject of a workflow instance is limited to 255 characters.",
+     "type": "cds.String",
+     "length": 255
+    },
+    "rootInstanceId": {
+     "@description": "The workflow root instance ID. The root ID is at least 36 characters long.",
+     "type": "cds.String",
+     "length": 255
+    },
+    "parentInstanceId": {
+     "@description": "The workflow parent instance ID. The parent ID can be null or at least 36 characters long.",
+     "type": "cds.String",
+     "length": 255
+    },
+    "projectId": {
+     "@description": "The project ID  of the SAP Build Process Automation project to which workflowinstance belongs to. It has the format of region.subaccount.projectName. The projectid is limited to 255 characters.",
+     "type": "cds.String",
+     "length": 255
+    },
+    "projectVersion": {
+     "@description": "The project version of SAP Build Process Automation project to which workflowinstance belongs to. The projectversion is limited to 64 characters.",
+     "type": "cds.String",
+     "length": 64
+    }
+   },
+   "kind": "type"
+  }
+ },
+ "meta": {
+  "creator": "cds-import-openapi"
+ }
+}
